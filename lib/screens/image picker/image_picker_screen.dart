@@ -17,19 +17,69 @@ class ImagePickerScreen extends StatelessWidget {
       ),
       body: BlocBuilder<ImagePickerBloc, ImagePickerState>(
         builder: (context, state) {
-          return state.file == null
-              ? Center(
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.camera,
-                      size: 60,
-                    ),
-                    onPressed: () {
-                      context.read<ImagePickerBloc>().add(CameraCaptureImageEvent());
-                    },
-                  ),
-                )
-              : Image.file(File(state.file!.path.toString(),),);
+          return Center(
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<ImagePickerBloc>()
+                                      .add(CameraCaptureImageEvent());
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.camera,
+                                  size: 60,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<ImagePickerBloc>()
+                                      .add(GalleryCaptureImageEvent());
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.image,
+                                  size: 60,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                builder: (context, state) {
+                  return SizedBox(
+                      height: MediaQuery.of(context).size.height * .5,
+                      // color: Colors.red,
+                      child: state.file != null
+                          ? Image.file(
+                              File(
+                                state.file!.path.toString(),
+                              ),
+                            )
+                          : const Center(child: Text("Click here to capture image"),));
+                },
+              ),
+            ),
+          );
         },
       ),
     );
