@@ -1,4 +1,5 @@
 import 'package:bloc_practice/bloc/counter/counter_bloc.dart';
+import 'package:bloc_practice/bloc/post/post_bloc.dart';
 import 'package:bloc_practice/bloc/switch/switch_bloc.dart';
 import 'package:bloc_practice/bloc/todo/todo_bloc.dart';
 import 'package:bloc_practice/repository/favourite_item_repository.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavouriteBloc(FavouriteItemRepository()),
+        ),
+        BlocProvider(
+          create: (context) => PostBloc(),
         ),
       ],
       child: MaterialApp(

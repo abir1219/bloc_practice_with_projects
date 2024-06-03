@@ -13,6 +13,12 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   @override
+  void initState() {
+    super.initState();
+    context.read<PostBloc>().add(FetchPostEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +27,7 @@ class _PostScreenState extends State<PostScreen> {
       ),
       body: BlocBuilder<PostBloc, PostState>(
         builder: (context, state) {
-          switch(state.postStatus){
+          switch (state.postStatus) {
             case PostStatus.loading:
               return const Center(
                 child: CircularProgressIndicator(),
@@ -33,8 +39,22 @@ class _PostScreenState extends State<PostScreen> {
             case PostStatus.success:
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  return ListTile(
-
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.green,
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        state.postList[index].title!,
+                        style: const TextStyle(fontSize: 20, color: Colors.white,fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        state.postList[index].body!,
+                        style: const TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
                   );
                 },
                 itemCount: state.postList.length,
