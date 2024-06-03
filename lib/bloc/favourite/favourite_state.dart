@@ -12,11 +12,13 @@ class FavouriteState extends Equatable {
 
   FavouriteState copyWith(
       {List<FavouriteModel>? itemList, ListStatus? fetchStatus}) {
+    // debugPrint("IS_FAVOURITE===>${isFavourite ?? this.isFavourite}");
     return FavouriteState(
         itemList: itemList ?? this.itemList,
-        fetchStatus: fetchStatus ?? this.fetchStatus);
+        fetchStatus: fetchStatus ?? this.fetchStatus
+    );
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [itemList,fetchStatus];
 }

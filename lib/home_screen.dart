@@ -1,6 +1,7 @@
 import 'package:bloc_practice/screens/counter/counter_screen.dart';
 import 'package:bloc_practice/screens/favourite/favourite_screen.dart';
 import 'package:bloc_practice/screens/image%20picker/image_picker_screen.dart';
+import 'package:bloc_practice/screens/post/post_screen.dart';
 import 'package:bloc_practice/screens/switch_example/switch_example_screen.dart';
 import 'package:bloc_practice/screens/todo/todo_screen.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,16 @@ class HomeScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => const FavouriteScreen(),
+              ),
+            ),
+          ),
+          customButton(
+            context,
+            "Api Calling",
+                () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PostScreen(),
               ),
             ),
           ),
